@@ -1,7 +1,7 @@
 #NFS
 sudo apt install libnfs-utils
 
-wget https://raw.githubusercontent.com/democratic-csi/charts/master/stable/democratic-csi/examples/freenas-nfs.yaml
+#wget https://raw.githubusercontent.com/democratic-csi/charts/master/stable/democratic-csi/examples/freenas-nfs.yaml
 
 #iSCSI
 sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools
@@ -18,4 +18,4 @@ sudo service multipath-tools restart
 sudo systemctl enable open-iscsi.service
 sudo service open-iscsi start
 
-wget https://raw.githubusercontent.com/democratic-csi/charts/master/stable/democratic-csi/examples/freenas-iscsi.yaml
+#wget https://raw.githubusercontent.com/democratic-csi/charts/master/stable/democratic-csi/examples/freenas-iscsi.yaml
