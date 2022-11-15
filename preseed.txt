@@ -96,7 +96,7 @@ d-i mirror/http/proxy string
 ### Account setup
 # Skip creation of a root account (normal user account will be able to
 # use sudo).
-#d-i passwd/root-login boolean false
+d-i passwd/root-login boolean false
 # Alternatively, to skip creation of a normal user account.
 #d-i passwd/make-user boolean false
 
@@ -348,7 +348,6 @@ d-i finish-install/reboot_in_progress note
 # packages and run commands in the target system.
 #d-i preseed/late_command string apt-install zsh; in-target chsh -s /bin/zsh
 
-d-i preseed/late_command string apt-install sudo curl open-vm-tools; \
-in-target usermod -a -G sudo user;
-in-target curl https://raw.githubusercontent.com/Tabisch/DebianDeployment/main/update-issue.sh > /etc/network/if-up.d/update-issue.sh;
+d-i preseed/late_command string apt-install curl open-vm-tools; \
+in-target curl --output /etc/network/if-up.d/update-issue.sh https://raw.githubusercontent.com/Tabisch/DebianDeployment/main/update-issue.sh;
 in-target chmod $+x /etc/network/if-up.d/update-issue.sh;
