@@ -350,4 +350,4 @@ d-i finish-install/reboot_in_progress note
 
 d-i preseed/late_command string apt-install curl open-vm-tools; \
 in-target curl --output /etc/network/if-up.d/update-issue.sh https://raw.githubusercontent.com/Tabisch/DebianDeployment/main/update-issue.sh;
-in-target chmod $+x /etc/network/if-up.d/update-issue.sh;
+in-target chmod +x /etc/network/if-up.d/update-issue.sh;
