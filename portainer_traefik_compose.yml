@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+#portainer_agent
+  portainer_agent:
+    image: portainer/agent:latest
+    restart: always
+    networks:
+      - homeautomation
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+
+#portainer
+  portainer/portainer-ce:latest:
+    name: portainer
+    image: portainer/portainer-ce:latest
+    restart: always
+    networks:
+      - homeautomation
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    ports:
+      - 9443:9443
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.portainer.entrypoints: websecure
+      traefik.http.routers.portainer.rule: Host(`portainer.tabisch.net`)
+      traefik.http.routers.portainer.service: portainer
+      traefik.http.routers.portainer.tls.certresolver: production
+      traefik.http.services.portainer.loadbalancer.server.port: 9443
+      traefik.http.routers.portainer.middlewares: internalService@file
+	  
+  networks:
+    portainer:
