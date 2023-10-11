@@ -15,3 +15,5 @@ if grep -q "iface enp1s0 inet dhcp" /etc/network/interfaces; then
 fi
 
 echo -e "nameserver ${DNSSERVER}" | sudo tee /etc/resolv.conf
+
+echo -e "$(hostname --short)\tIN\tA\t${IP}"
