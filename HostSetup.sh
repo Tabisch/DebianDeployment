@@ -8,11 +8,10 @@ read -p "GATEWAY:" GATEWAY
 read -p "DNSSERVER:" DNSSERVER
 
 sudo hostnamectl hostname "${HOSTNAME}.${DOMAIN}"
-sudo sed -i "/.*unassigned-hostname.*/c\127.0.1.1\t${HOSTNAME}.${DOMAIN}\t${HOSTNAME}" /etc/hosts
+sudo sed -i "/.*$(hostname --short).*/c\127.0.1.1\t${HOSTNAME}.${DOMAIN}\t${HOSTNAME}" /etc/hosts
 
-sudo sed -i "/.*enp1s0.*/c\iface enp1s0 inet static" /etc/network/interfaces
-echo -e "\taddress ${IP}" | sudo tee -a /etc/network/interfaces
-echo -e "\tnetmask ${NETMASK}" | sudo tee -a /etc/network/interfaces
-echo -e "\tgateway ${GATEWAY}" | sudo tee -a /etc/network/interfaces
+if grep -q "iface enp1s0 inet dhcp" /etc/network/interfaces; then
+    sudo sed -i "/iface\senp1s0\sinet\sdhcp/c\iface enp1s0 inet static\n\taddress ${IP}\n\tnetmask ${NETMASK}\n\tgateway ${GATEWAY}" /etc/network/interfaces
+fi
 
-echo -e "${DNSSERVER}" | sudo tee /etc/resolve.conf
+echo -e "nameserver ${DNSSERVER}" | sudo tee /etc/resolv.conf
