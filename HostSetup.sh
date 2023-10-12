@@ -18,7 +18,7 @@ fi
 
 #ip on lockscreen
 if ! grep -q "\4" /etc/issue; then
-    echo "\4" | sudo tee -a /etc/issue &> /dev/null
+    echo "IP: \4" | sudo tee -a /etc/issue &> /dev/null
 fi
 
 #default dns server
