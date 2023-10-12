@@ -3,6 +3,10 @@
 sudo swapoff -a
 sudo sed -i "/.*swap.*/d" /etc/fstab
 
+if ! grep -q "br_netfilter" /etc/issue; then
+    echo br_netfilter | sudo tee -a /etc/modules  &> /dev/null
+fi
+
 sudo modprobe br_netfilter
 sudo sed -i "/.*net.ipv4.ip_forward.*/c\net.ipv4.ip_forward=1" /etc/sysctl.conf
 sudo sysctl net.ipv4.ip_forward=1
