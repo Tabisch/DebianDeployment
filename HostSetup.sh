@@ -17,7 +17,7 @@ if grep -q "iface enp1s0 inet dhcp" /etc/network/interfaces; then
 fi
 
 #ip on lockscreen
-if ! grep -q "IP: \4" /etc/issue; then
+if ! grep -qF "IP: \4" /etc/issue; then
     echo "IP: \4" | sudo tee -a /etc/issue &> /dev/null
 fi
 
