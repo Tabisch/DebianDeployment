@@ -24,5 +24,9 @@ fi
 #default dns server
 echo -e "nameserver ${DNSSERVER}" | sudo tee /etc/resolv.conf &> /dev/null
 
+#shorten grub timeout
+sudo sed -i "/.*GRUB_TIMEOUT=.*/c\GRUB_TIMEOUT=1" /etc/default/grub
+sudo update-grub
+
 #bind9 entry (copy paste)
 echo -e "$(hostname --short)\tIN\tA\t${IP}"
